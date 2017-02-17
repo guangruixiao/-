@@ -1,0 +1,13 @@
+
+
+#show{ position: relative;  width:450px;height: 300px; border:2px solid black;margin:90px  auto; overflow:hidden;}
+
+#b {display: none;}
+#c {display: none;}
+
+.jpg { z-index: 99; }
+
+.button {cursor: pointer;  z-index: 100; width:40px; height: 20px; border:2px solid yellow;position: absolute;margin-top:150px;background-image: " url(ad0.gif);"    display: none;}
+
+#back {top:10px; left: 50px;}
+#next {top: 10px;right:50px;}
