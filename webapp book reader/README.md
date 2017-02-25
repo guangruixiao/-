@@ -5,14 +5,16 @@
 前端-移动APP阅读器
 
 
-主要功能：       
+主要功能：  
+
          1. 翻页功能 （ajax实现与后台的数据交互）
          2. 字体、颜色的切换
 
 ####示例:
 
  <img src="阅读器界面1.png" width =20%  height = 20% alt="图片名称" />
- <img src="阅读器界面2.png" width =20%  height = 20% alt="图片名称" margin-left="30px"; />
+ <img src="阅读器界面2.png" width =20%  height = 20% alt="图片名称" padding-left="30px"; />
+ 
 ###使用框架
 1.lib/zepto.min.js 相当于移动版的jquery
 
