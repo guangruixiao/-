@@ -10,7 +10,10 @@
          2 字体、颜色的切换
 
 ####示例:
-![截图](https://github.com/guangruixiao/frontend-project/blob/master/webapp%20book%20reader/%E9%98%85%E8%AF%BB%E5%99%A8%E7%95%8C%E9%9D%A21.png)
+
+<img src="(https://github.com/guangruixiao/frontend-project/blob/master/webapp%20book%20reader/%E9%98%85%E8%AF%BB%E5%99%A8%E7%95%8C%E9%9D%A21.png" style="zoom:50%" />
+
+![截图](https://github.com/guangruixiao/frontend-project/blob/master/webapp%20book%20reader/%E9%98%85%E8%AF%BB%E5%99%A8%E7%95%8C%E9%9D%A21.png =30*30)
 
 ###使用框架
 1.lib/zepto.min.js 相当于移动版的jquery
