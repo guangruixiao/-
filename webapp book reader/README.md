@@ -13,10 +13,10 @@
 ####示例:
 
  <img src="阅读器界面1.png" width =20%  height = 20% alt="图片名称" />
- <img src="阅读器界面2.png" width =20%  height = 20% alt="图片名称"  style='position:absolute;left:300;top:200'/>
+ <img src="阅读器界面2.png" width =20%  height = 20% alt="图片名称"  align=center />
  
-###使用框架
-1.lib/zepto.min.js 相当于移动版的jquery
+###使用工具
+1.lib/zepto.min.js 
 
 2.js/jquery.base64.js base64解析
 
@@ -24,7 +24,6 @@
 
 
 ###使用方法
-最简单的html使用，素材，json都在项目中，不需要后台。
 为了简单实现跨域数据传输，请右键点击浏览器的快捷方式，选择属性—目标，添加--allow-file-access-from-files
 
 ### 注意事项
