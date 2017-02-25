@@ -10,9 +10,7 @@
          2 字体、颜色的切换
 
 ####示例:
-
-<img src="(https://github.com/guangruixiao/frontend-project/blob/master/webapp%20book%20reader/%E9%98%85%E8%AF%BB%E5%99%A8%E7%95%8C%E9%9D%A21.png" width = "50%" />
-
+！[]((https://github.com/guangruixiao/frontend-project/blob/master/webapp%20book%20reader/%E9%98%85%E8%AF%BB%E5%99%A8%E7%95%8C%E9%9D%A21.png)
 
 
 ###使用框架
