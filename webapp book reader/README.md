@@ -13,7 +13,7 @@
 ####示例:
 <div >
  <img src="阅读器界面1.png" width =20%  height = 20%   alt="图片名称" />
- <span  width="60px" height="60px"></span>
+ <span  width="60px" height="60px">我去</span>
  <img src="阅读器界面2.png" width =20%  height = 20%  padding="200px" alt="图片名称"  />
  </div>
  
