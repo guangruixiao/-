@@ -2,7 +2,7 @@
 #webappbook
 -------------
 
-前端-移动APP阅读器
+移动APP阅读器前端
 
 
 ###主要功能：
@@ -13,7 +13,7 @@
 ####示例:
 
  <img src="阅读器界面1.png" width =20%  height = 20% alt="图片名称" />
- <img src="阅读器界面2.png" width =20%  height = 20% alt="图片名称" position:absolute; left:300px;top:150px; />
+ <img src="阅读器界面2.png" width =20%  height = 20% alt="图片名称"  style='position:absolute;left:300;top:200'/>
  
 ###使用框架
 1.lib/zepto.min.js 相当于移动版的jquery
