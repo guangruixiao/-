@@ -11,8 +11,8 @@
 
 ####示例:
 
- <img src="阅读器界面1.png" width =30%  height = 30% alt="图片名称" />
- <img src="阅读器界面2.png" width =30%  height = 30% alt="图片名称" margint-left=30px; />
+ <img src="阅读器界面1.png" width =20%  height = 20% alt="图片名称" />
+ <img src="阅读器界面2.png" width =20%  height = 20% alt="图片名称" margint-left="30px"; />
 ###使用框架
 1.lib/zepto.min.js 相当于移动版的jquery
 
