@@ -11,11 +11,8 @@
 
 ####示例:
 
-![截图](阅读器界面1.png "截图")
-
-
- <img src="阅读器界面1.png" width = "300" height = "200" alt="图片名称" align=center />
-
+ <img src="阅读器界面1.png" width =40%  height = 40% alt="图片名称" />
+ <img src="阅读器界面2.png" width =40%  height = 40% alt="图片名称" />
 ###使用框架
 1.lib/zepto.min.js 相当于移动版的jquery
 
