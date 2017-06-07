@@ -42,29 +42,36 @@
 
 		// 通用方法
 		
-			var get=function(selector, results) {
+			var get=function(selector,context, results) {
 				
 				results = results || [];
+				context = context || document;
             //                     1          2        3       4
             var rquickExpr = /^(?:#([\w-]+)|\.([\w-]+)|([\w]+)|(\*))$/,
                 m = rquickExpr.exec( selector );
              
             if ( m ) {
-                 
-                if ( m[ 1 ] ) {
-                    results = getId( m[ 1 ], results );
-                } else if ( m[ 2 ] ) {
-                    results = getClass( m[ 2 ], results );
-                } else if ( m[ 3 ] ) {
-                    results = getTag( m[ 3 ], results );
-                } else if ( m[ 4 ] ) {
-                    results = getTag( m[ 4 ], results );
-                }
-                 
+            	if ( context.nodeType ) {
+            		context = [ context ];
+            	}
+            	// 如果 context 是一个 dom 数组就没有问题了
+            	// 但是 context 是一个选择器字符串. 有可能是 '.c'
+            	// 
+            	if ( typeof context == 'string' ) {
+            		context = get( context );
+            	}
+            	each( context, function ( i, v ) {
+            		if ( m[ 1 ] ) {
+            			results = getId( m[ 1 ], results );
+            		} else if ( m[ 2 ] ) {
+            			results = getClass( m[ 2 ], v, results );
+            		} else if ( m[ 3 ] ) {
+            			results = getTag( m[ 3 ], this, results );
+            		} else if ( m[ 4 ] ) {
+            			results = getTag( m[ 4 ], this, results );
+            		}
+            	} );
             }
-             
-            return results;						
-			};
 
 
 		//迭代封装
