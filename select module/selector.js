@@ -4,21 +4,20 @@
 
 		var support={}
 
-		support.getElementsByClassName=!!document.getElementsByClassName
+		support.getElementsByClassName=!!document.getElementsByClassName;
 			
-
-		// 对基本方法的封装
+			// 对基本方法的封装
 
 			var getTag=function(tag,results) {
 				results=results||[]
-				results.push.apply(results,document.getElementsByTagName(tag)) 
+				results.push.apply( results, context.getElementsByTagName( tag ) )
 				return results
-			};
+			}
 
 			var getClass=function(className,results) {
 				results=results||[]
 				if (support.getElementsByClassName) {
-					results.push.apply(results,document.getElementsByClassName(className)) 
+					[].push.apply(results,document.getElementsByClassName(className)) 
 					return results
 				} else {
 					
@@ -38,15 +37,14 @@
 				return results
 			};
 
-	
+			
+		    // 通用方法
 
-		// 通用方法
-		
 			var get=function(selector,context, results) {
 				
 				results = results || [];
 				context = context || document;
-            //                     1          2        3       4
+          
             var rquickExpr = /^(?:#([\w-]+)|\.([\w-]+)|([\w]+)|(\*))$/,
                 m = rquickExpr.exec( selector );
              
@@ -56,7 +54,7 @@
             	}
             	// 如果 context 是一个 dom 数组就没有问题了
             	// 但是 context 是一个选择器字符串. 有可能是 '.c'
-            	// 
+            	
             	if ( typeof context == 'string' ) {
             		context = get( context );
             	}
@@ -70,16 +68,18 @@
             		} else if ( m[ 4 ] ) {
             			results = getTag( m[ 4 ], this, results );
             		}
-            	} );
+            	} )
             }
 
+        	}
 
-		//迭代封装
-	       var each=function(arr,fn) {
-	       	 for (var i = 0; i < arr.length; i++) {
-	       	 	 if ( fn.call(arr[i],i,arr[i])===false) {
-	       	 	 	break;
-	       	 	 }  
-	       	 }
-	       };
-       
+        	//迭代封装
+	    
+
+	      var each = function ( arr, fn ) {
+			for ( var i = 0; i < arr.length; i++ ) {
+				if ( fn.call( arr[ i ], i, arr[ i ] ) === false ) {
+					break;
+				}
+			}
+		};

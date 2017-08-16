@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>selector</title>
-	<script src="frame.js"></script>
+	<script src="selector.js"></script>
 	<style>
 	  div,p {width: 50px;height: 50px;margin:10px 0; border:1px solid red;}
 	</style>
@@ -16,8 +16,8 @@
 	<p class="no"></p>
 
 	 <script>
-	 	each(get(".no"),function() {
-	 		this.style.background="red"
+	 	each(get("div"),function() {
+	 		this.style.background="yellow"
 	 	})
 	 </script>
 </body>
