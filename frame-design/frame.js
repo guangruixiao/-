@@ -10,8 +10,7 @@
 	jQuery.fn=jQuery.prototype={
 
 		    constructor: jQuery,
-
-          
+     
 
             // 代表所有实例默认的选择器，也代表实例是一个jQuery类型的对象
             selector: '',
@@ -32,9 +31,67 @@
 				}
 			  }
 			},
+
+			// 通过实例得到一个新数组
+			map: function( fn ) {
+			    return jQuery.map( this, fn );
+			},
+
+
+			// 获取指定下标的元素，获取的是原生DOM
+			get: function( i ) {
+			 
+			    // null、undeinfed
+			    if ( i == null ) {
+			        return this.toArray();
+			    }
+
+			    // 其他
+			    if ( i >= 0 ) {
+			        return this[ i ];
+			    }else {
+			        return this[ this.length + i ];
+			    }
+			},	
+
+			// 截取实例的部分元素，构成一个新的jQuery实例返回
+			slice: function() {
+			    /*
+			     * 1、通过数组的slice截取部分元素(slice返回的是数组)，
+			     * 2、把截取到的元素转换为实例对象返回。
+			     * */
+
+			    // 因为slice的参数会有变化，所以需要是arguments，
+			    // 我们要把arguments中的每一项传给数组的slice，所以需要借用apply平铺传递过去，
+			    // 最后把slice返回数组，通过jQuery工厂保证成实例返回。
+			    var nodes = [].slice.apply( this, arguments );
+			    return jQuery( nodes );
+			},
+		
+			// 获取指定下标的元素，获取的是jQuery类型的实例对象。
+			eq: function( i ) {
+			    /*
+			     * 1、如果传入null或undefined，返回一个新实例，
+			     * 2、如果传入的是正数，按照指定的下标获取元素，再包装成新实例返回
+			     * 3、如果传入的是负数，按照下标倒着( this.length + 负数 )获取元素，再包装成新实例返回
+			     * */
+
+			    // null、undefined得到新实例
+			    if( i == null ) {
+			        return jQuery();
+			    }
+
+			    if( i >= 0 ) {
+			        return jQuery( this[ i ] );
+			    }else {
+			        return jQuery( this[ this.length + i ] );
+			    }
+			}
+
+		
 	};
 
-	//把方法放入extend,jQuery却可以直接使用
+	//把静态方法和实例方法均放入extend
 	jQuery.extend=jQuery.fn.extend =function(obj) {
 
 		for (var key in obj){
@@ -80,16 +137,7 @@
 		},
 		ready: function( fn ) {
 
-		     // 先统一判断DOMContentloaded有没有触发，
-		     // 通过document.readyState === 'complete'判断
-		     // 如果为true，fn可以直接调用。
-
-		     // 如果为false，那么判断支不支持addEventListener，
-		     // 如果支持，绑定DOMContentLoaded事件
-
-		     // 如果不支持，使用attchEvent绑定onreadystatechang事件,
-		     // 注意，需要在里面判断document.readyState === 'complete'才执行fn。
-		     // 防止fn多次执行。
+		     
 
 		     // DOM已经构造完毕，fn可以直接执行
 		     if ( document.readyState === 'complete' ) {
@@ -101,9 +149,7 @@
 		         document.addEventListener( 'DOMContentLoaded', fn );
 		     }
 
-		     // 如果不兼容addEventListener，那么采取attachEvent的方式，
-		     // 同时事件变为了onreadystatechange，为了防止这个事件多次触发造成的fn多次执行，
-		     // 所以需要一个包装函数来进行过滤。
+		    
 		     else {
 		         document.attachEvent( 'onreadystatechange', function() {
 		             if( document.readyState === 'complete' ) {
@@ -114,18 +160,15 @@
 		}
 
 	});
-		
 
-	// 给原型扩展DOM操作方法，这样jQ实例就可以使用了
+	// 添加实例方法
 	jQuery.fn.extend( {
+
+      // 1 DOM操作
 
 	    // 清空所有元素的内容
 	    empty: function() {
-	        /*
-	         * 实现思路：
-	         * 1、遍历likeArray（ 可以考虑使用for遍历，也可以考虑使用each遍历 ）
-	         * 2、遍历到的每一个元素清除其内容（ 元素.innerHTML = '' ）
-	         * */
+	     
 	        for ( var i = 0, len = this.length; i < len; i++ ) {
 	            this[ i ].innerHTML = '';
 	        }
@@ -134,12 +177,7 @@
 
 	    // 删除所有的元素
 	    remove: function() {
-	        /*
-	         * 实现思路：
-	         * 1、遍历likeArray（ 可以考虑使用for遍历，也可以考虑使用each遍历 ）
-	         * 2、遍历到的每一个元素要删除掉
-	         * （ 通过parentNode获取该元素的父元素，然后父元素.removeChild( 被删除元素 ) ）
-	         * */
+	     
 	        for( var i = 0, len = this.length; i < len; i++ ) {
 	            this[ i ].parentNode.removeChild( this[ i ] );
 	        }
@@ -148,14 +186,7 @@
 
 	    // 设置所有元素的内容，获取第一个元素的内容
 	    html: function( html ) {
-	        /*
-	         * 实现思路：
-	         * 1、先通过arguments.length判断有没有传参
-	         * 2、没有传，则获取第一个元素，然后返回这个元素的innnerTHML内容
-	         * 3、如果传了，则遍历likeArray（ 可以考虑使用for遍历，也可以考虑使用each遍历 ）
-	         * 4、再设置每一个元素的innerTHML为传入的参数。
-	         * */
-
+	     
 	        // 如果只传入的要操作的元素，那么就直接返回第一个元素的innerHTML
 	        if ( arguments.length === 0 ) {
 	            return this[ 0 ].innerHTML;
@@ -173,14 +204,7 @@
 	 
 	    // 设置所有元素的文本内容，获取所有元素的文本内容
 	    text: function( text ) {
-	        /*
-	         * 实现思路：
-	         * 1、先通过arguments.length判断有没有传参
-	         * 2、没有传，则遍历likeArray（ 可以考虑使用for遍历，也可以考虑使用each遍历 ）
-	         * 3、把每一个元素的innerText加在一起返回
-	         * 4、则遍历likeArray（ 可以考虑使用for遍历，也可以考虑使用each遍历 ）
-	         * 5、再设置每一个元素的innerText为传入的参数。
-	         * */
+	      
 
 	        var result = '';
 
@@ -251,7 +275,11 @@
 	   
 	} );
 
-	// 这是真正的构造函数，同时把构造函数放在了原型中
+	//init与jQuery指向同一个原型,让实例可以调用jQuery原型上的方法
+	init.prototype=jQuery.fn;
+
+
+	// 真正的构造函数，入口函数的处理
 	var init = jQuery.fn.init = function( selector ) {
 
 	    // null、undefined、NaN、0、false、''
@@ -262,21 +290,19 @@
 	    // function
 	    if ( jQuery.isFunction( selector ) ) {
 
-	        // 打包给ready静态方法处理
+	        
 	        jQuery.ready( selector );
 	    }
 
 	    // string ==> ( html || selector )
 	    else if( typeof(selector)==="string" ) {
 
-	        // 为了用户友好体验，先去掉首尾空白字符
 	        selector = jQuery.trim( selector );
 
 	        // html
 	        if( jQuery.ishtml( selector ) ) {
 
-	            // 利用一个临时的div来创建DOM，
-	            // 然后把创建好的DOM依次push给实例。
+	            
 	            var tempDiv = document.createElement( 'div' );
 	            tempDiv.innerHTML = selector;
 	            [].push.apply( this, tempDiv.childNodes );
@@ -289,7 +315,7 @@
 	            try {
 	                [].push.apply( this, document.querySelectorAll( selector ) );
 	            }catch(e) {
-	                // 如果报错了，那么手动补一个length属性，代表没有获取到任何元素
+	                一个length属性，代表没有获取到任何元素
 	                this.length = 0;
 	            }
 	        }
@@ -307,9 +333,7 @@
 	    }
     };
 
-	//为了让实例可用插件，init与jQuery指向同一个原型
-	init.prototype=jQuery.fn;
-
+	
 	//暴露两个变量		
 	w.jQuery = w.$ = jQuery;
 	

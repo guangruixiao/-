@@ -5,20 +5,65 @@
 	<title>frame</title>
 	<script src="frame.js"></script>
 	<style>
-	
+	       <div>
+             <span>1111</span>
+             <span>2222</span>
+             <span>3333</span>
+             <span>4444</span>
+             <span>
+                 <a>1</a>
+                 <a>2</a>
+                 <a>3</a>
+             </span>
+         </div>
 	</style>
-
 </head>
 <body>
-	<div id="yes" style="width:100px; height:100px; color:blue;">wowowo</div>
-  
+	 
   <script>
-  	
-  		window.onload=function() {
+ 
+	
+    // 1  原型核心方法
+          
+          console.log($().jquery);
+          console.log($().selector);
+          console.log($().length);
+          console.log($('li').toArray());
 
-  			console.log($("div").css("color"));
-  		}
-  		
+          console.log($('li').get());
+          console.log($('li').get(0));
+          console.log($('li').get(-1));
+
+          console.log($('li').slice( 0, 2 ));
+
+          console.log($('li').eq());
+          console.log($('li').eq(0));
+          console.log($('li').eq(-2));
+
+    // 2  DOM操作
+
+         console.log($('span').empty());
+
+         console.log($('span').remove());
+      
+         console.log($('span').html());
+
+         console.log($('span').html('统一设置新的内容<a>我是a标签</a>'));
+     
+         console.log($('span').text());
+
+         console.log($('span').text('统一设置新的内容<a>我是a标签</a>'));
+
+
+    // 3  属性样式操作
+
+
+    // 4  事件操作
+
+
+    // 5  ajax使用及插件扩展
+
+
 
   		
 
