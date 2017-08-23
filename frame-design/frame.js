@@ -11,7 +11,6 @@
 
 		    constructor: jQuery,
      
-
             // 代表所有实例默认的选择器，也代表实例是一个jQuery类型的对象
             selector: '',
 
@@ -56,10 +55,7 @@
 
 			// 截取实例的部分元素，构成一个新的jQuery实例返回
 			slice: function() {
-			    /*
-			     * 1、通过数组的slice截取部分元素(slice返回的是数组)，
-			     * 2、把截取到的元素转换为实例对象返回。
-			     * */
+			  
 
 			    // 因为slice的参数会有变化，所以需要是arguments，
 			    // 我们要把arguments中的每一项传给数组的slice，所以需要借用apply平铺传递过去，
@@ -80,7 +76,6 @@
 			    if( i == null ) {
 			        return jQuery();
 			    }
-
 			    if( i >= 0 ) {
 			        return jQuery( this[ i ] );
 			    }else {
@@ -157,7 +152,21 @@
 		             }
 		         } );
 		     }
-		}
+		},
+
+		// 获取样式，已经处理了兼容性
+		getStyle: function( dom, style ) {
+
+		    // 优先判断支不支持现代样式的获取方式
+		    if( window.getComputedStyle ) {
+		        return window.getComputedStyle( dom )[ style ];
+		    }
+
+		    // IE8兼容处理
+		    else {
+		        return dom.currentStyle[ style ];
+		    }
+		},
 
 	});
 
@@ -165,7 +174,7 @@
 	jQuery.fn.extend( {
 
       // 1 DOM操作
-
+        
 	    // 清空所有元素的内容
 	    empty: function() {
 	     
@@ -174,7 +183,6 @@
 	        }
 	    },
 
-
 	    // 删除所有的元素
 	    remove: function() {
 	     
@@ -182,7 +190,6 @@
 	            this[ i ].parentNode.removeChild( this[ i ] );
 	        }
 	    },
-
 
 	    // 设置所有元素的内容，获取第一个元素的内容
 	    html: function( html ) {
@@ -200,7 +207,6 @@
 	            }
 	        }
 	    },
-
 	 
 	    // 设置所有元素的文本内容，获取所有元素的文本内容
 	    text: function( text ) {
@@ -227,23 +233,189 @@
 	    },
 
 
-	    // 所有元素添加新的class
-	    addClass:function(name) {
+	  // 2 属性 样式 class操作
 
-	    	//补充判断个数
+	  	// 设置或者获取元素的属性节点值
+	  	attr: function( attr, val ) {
+	  	  
 
-	    	for (var i = 0; i < this.length; i++) {
-	    		this[i].className=name
-	    	}
-	    	
-	    },
+	  	    // 不是字符串也不是对象，直接返回this
+	  	    if( !jQuery.isString( attr ) && !jQuery.isObject( attr ) ) {
+	  	        return this;
+	  	    }
 
-	    removeClass:function() {
-	    	for (var i = 0; i < this.length; i++) {
-	    		this[i].className=""
-	    	}
-	    },
+	  	    // 如果是字符串
+	  	    if( jQuery.isString( attr ) ) {
 
+	  	        // 如果length为1，则直接返回第一个元素的属性节点值
+	  	        if( arguments.length === 1 ) {
+	  	            return this.get( 0 ).getAttribute( attr );
+	  	        }
+
+	  	        // 如果length为多个(2和及2个以上)
+	  	        // 则遍历所有的元素，分别设置属性节点值
+	  	        else {
+	  	            for( var i = 0, len = this.length; i < len; i++ ) {
+	  	                this[ i ].setAttribute( attr, val );
+	  	            }
+	  	        }
+	  	    }
+
+	  	    // 如果是对象
+	  	    // 遍历这个对象，和所有的元素，分别添加遍历到的属性节点值
+	  	    else {
+
+	  	        // 遍历得到所有的属性节点和属性节点值
+	  	        for( var key in attr ) {
+
+	  	            // 遍历得到所有的元素
+	  	            for( var i = 0, len = this.length; i < len; i++ ) {
+	  	                this[ i ].setAttribute( key, attr[ key ] );
+	  	            }
+
+	  	        }
+	  	    }
+
+	  	    // 链式编程
+	  	    return this;
+	  	},
+	 
+	  	// 设置或者获取属性
+	  	prop: function( attr, val ) {
+	  	  
+	  	    // 不是字符串也不是对象，那么就走吧
+	  	    if( !jQuery.isString( attr ) && !jQuery.isObject( attr ) ) {
+	  	        return this;
+	  	    }
+
+	  	    if( jQuery.isString( attr ) ) {
+
+	  	        // 如果只有一个参数为字符串，那么返回第一个元素指定的属性值
+	  	        if( arguments.length === 1 ) {
+	  	            return this[ 0 ][ attr ];
+	  	        }
+
+	  	        // 如果多个参数，那么给所有元素设置指定的属性值
+	  	        else if( arguments.length >= 2 ){
+	  	            for( var i = 0, len = this.length; i < len; i++ ) {
+	  	                this[ i ][ attr ] = val;
+	  	            }
+	  	        }
+	  	    }
+
+	  	    // 如果传入的attr是对象
+	  	    else {
+
+	  	        // 遍历attr得到所有的属性
+	  	        for( var key in attr ) {
+
+	  	            // 遍历所有的元素
+	  	            for( var i = 0, len = this.length; i < len; i++ ) {
+
+	  	                // 给每一个元素设置属性
+	  	                this[ i ][ key ] = attr[ key ];
+	  	            }
+	  	        }
+	  	    }
+
+	  	    // 链式编程
+	  	    return this;
+	  	},
+
+	  	// 设置或者获取元素的value属性值
+	  	val: function( value ) {
+	  	  
+	  	    // 没有传参，返回第一个元素的value属性值
+	  	    if( arguments.length === 0 ) {
+	  	        return this[ 0 ].value;
+	  	    }
+
+	  	    // 否则给所有元素分别设置value值
+	  	    else {
+	  	        for( var i = 0, len = this.length; i < len; i++ ) {
+	  	            this[ i ].value = value;
+	  	        }
+	  	    }
+
+	  	    // 链式编程
+	  	    return this;
+	  	},
+
+	  	// 判断元素中是否含有指定的class
+	  	hasClass: function( className ) {
+	  	    
+	  	    for( var i = 0, len = this.length; i < len; i++ ) {
+
+	  	        // 只要有一个元素存在指定的className，那么就可以true了
+	  	        if ( (' ' + this[ i ].className + ' ').indexOf(' ' + className + ' ') > -1 ) {
+	  	            return true;
+	  	        }
+	  	    }
+
+	  	    // 所有的元素都没有，那么返回false
+	  	    return false;
+	  	},
+
+	  	// 给所有的元素添加指定的class
+	  	addClass: function( className ) {
+	  	   
+	  	    this.each( function() {
+
+	  	        // 包装遍历到的每一个元素，
+	  	        // 然后复用hasClass判断这个元素有没有要添加的class
+	  	        // 没有则添加，有则忽略
+	  	        if( !jQuery( this ).hasClass( className ) ) {
+	  	            this.className += ' ' + className;
+	  	        }
+	  	    });
+
+	  	    // 链式编程返回this
+	  	    return this;
+	  	},
+	  
+	  	// 删除所有的元素指定的class
+	  	removeClass: function( className ) {
+	  	    
+
+	  	    // 没有传参，遍历所有元素清除他们的class
+	  	    if( arguments.length === 0 ) {
+	  	        this.each( function() {
+	  	            this.className = '';
+	  	        });
+	  	    }
+
+	  	    // 传参，遍历所有元素分别删除指定的class
+	  	    else {
+	  	        this.each( function() {
+	  	            this.className = (' ' + this.className + ' ').replace(' ' + className  + ' ', ' ');
+	  	        });
+	  	    }
+
+	  	    // 链式编程
+	  	    return this;
+	  	},
+
+	  	// 有则删除，没有则添加
+	  	toggleClass: function( className ) {
+	  	  
+	  	    this.each( function() {
+	  	        // 这里的this是遍历到的每一个原生DOM，
+	  	        // 先包装成JQ对象，就可以复用之前写好的方法了
+	  	        var $this = jQuery( this );
+
+	  	        // 有则删除，没有则添加
+	  	        if( $this.hasClass( className ) ) {
+	  	            $this.removeClass( className );
+	  	        }else {
+	  	            $this.addClass( className );
+	  	        }
+	  	    });
+
+	  	    // 链式编程
+	  	    return this;
+	  	},
+
+	  	// 设置或者获取样式
 	    css:function(attr,value) {
 
 	 		if (value==null) {
@@ -271,7 +443,7 @@
 	 				}	 			  
 	 			}
 	 		}	    	
-	    }
+	    },
 	   
 	} );
 

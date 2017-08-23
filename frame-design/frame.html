@@ -55,8 +55,23 @@
          console.log($('span').text('统一设置新的内容<a>我是a标签</a>'));
 
 
-    // 3  属性样式操作
+    // 3  class 属性 样式 操作
 
+        console.log($('span').addClass('add'));
+        console.log($('span').addClass('add no'));
+
+        console.log($('span').removeClass('no'));
+        console.log($('span').removeClass('aaa no'));
+
+        console.log($('span').toggleClass('no'));
+        console.log($('span').toggleClass('aaa no'));
+
+        console.log($('span').attr('b'));
+
+        console.log($('input').val());
+        console.log($('input').val( '新设置的' ));
+
+        console.log($('span').css('color'));
 
     // 4  事件操作
 
