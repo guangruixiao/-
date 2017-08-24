@@ -75,6 +75,16 @@
 
     // 4  事件操作
 
+        function clickHandle() {
+            alert( 'span' );
+        }  
+        function mouseoutHandle() {
+            alert( 'mouseout' );
+        }
+
+        $('span').on( 'click', clickHandle );
+        $('span').on( 'mouseout', mouseoutHandle );
+        $('span').off();
 
     // 5  ajax使用及插件扩展
 
