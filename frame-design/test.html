@@ -88,7 +88,31 @@
 
     // 5  ajax使用及插件扩展
 
+        $.ajax( {
+            url: 'test.json',
+            type: 'post',
+            data: {
+                name: '张三',
+                age: 18
+            },
+            success: function( data ) {
+                console.log( data );
+            }
+        } );
 
+        $.get('../test/test.json', function( data ) {
+            console.log( data );
+        });
+  
+        $.post('../test/test.json', function( data ) {
+            console.log( data );
+        });
+     
+        $.getScript('../test/test.js', function( jsStr ) {
+            console.log( jsStr );
+        });
+
+  
 
   		
 
